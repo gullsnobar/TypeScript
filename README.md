@@ -802,17 +802,385 @@ A common pattern is combining them to build strongly typed utility functions.
 
 ---
 
-## Summary of Questions 11–20
+## 21. What are Generics in TypeScript?
 
-1. What is `never`?
-2. What is `void`?
-3. What are Union Types?
-4. What are Literal Types?
-5. What is Type Assertion?
-6. What is an Enum?
-7. What is a Tuple?
-8. What are Generics?
-9. What are Type Guards?
-10. What are `keyof` and `typeof`?
+### Interview Question
 
-These topics cover many of the concepts that appear repeatedly in TypeScript interviews and form the foundation for more advanced topics such as utility types, conditional types, mapped types, and React with TypeScript.
+**Q: What are Generics in TypeScript?**
+
+### Answer
+
+Generics are a TypeScript feature that allows you to write reusable, flexible, and type-safe code. Instead of writing separate functions or classes for different data types, you can write one generic version that works with many types while preserving type information.
+
+### Why do we need Generics?
+
+Without generics, you would need separate functions for each type.
+
+#### Without Generics
+
+```ts
+function getNumber(value: number): number {
+  return value;
+}
+
+function getString(value: string): string {
+  return value;
+}
+```
+
+#### With Generics
+
+```ts
+function getValue<T>(value: T): T {
+  return value;
+}
+
+console.log(getValue(10));
+console.log(getValue("Gull"));
+console.log(getValue(true));
+```
+
+One function works for every type.
+
+### What does `<T>` mean?
+
+`T` is called a type parameter. You can name it anything.
+
+```ts
+function identity<DataType>(value: DataType): DataType {
+  return value;
+}
+```
+
+### Real-world Example
+
+```ts
+function getData<T>(data: T): T {
+  return data;
+}
+
+const user = getData({
+  id: 1,
+  name: "Gull"
+});
+```
+
+TypeScript now knows that `user` has `id` and `name`.
+
+### Generic Array
+
+```ts
+function firstElement<T>(arr: T[]): T {
+  return arr[0];
+}
+
+console.log(firstElement([10, 20, 30]));
+console.log(firstElement(["A", "B", "C"]));
+```
+
+### Generic Interface
+
+```ts
+interface Box<T> {
+  value: T;
+}
+
+const numberBox: Box<number> = {
+  value: 100
+};
+
+const stringBox: Box<string> = {
+  value: "Hello"
+};
+```
+
+### Generic Class
+
+```ts
+class Storage<T> {
+  constructor(public data: T) {}
+
+  getData(): T {
+    return this.data;
+  }
+}
+
+const user = new Storage<string>("Gull");
+console.log(user.getData());
+```
+
+### Advantages
+
+- Code reusability
+- Type safety
+- Better IntelliSense
+- Less duplication
+- Easier maintenance
+
+### Interview Tip
+
+> Generics preserve the type that is passed in. Unlike `any`, they do not lose type information.
+
+---
+
+## 22. What are Utility Types?
+
+### Interview Question
+
+**Q: What are Utility Types in TypeScript?**
+
+### Answer
+
+Utility Types are built-in generic types provided by TypeScript to transform or derive new types from existing ones without rewriting them manually. They help reduce duplication and improve maintainability.
+
+### Why do we need Utility Types?
+
+Suppose we have:
+
+```ts
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  age: number;
+}
+```
+
+Now imagine a profile update form where only some fields may be sent. Instead of creating a second interface manually, you can use `Partial`.
+
+### 1. Partial
+
+Makes all properties optional.
+
+```ts
+interface User {
+  id: number;
+  name: string;
+  age: number;
+}
+
+type UpdateUser = Partial<User>;
+```
+
+Equivalent to:
+
+```ts
+{
+  id?: number;
+  name?: string;
+  age?: number;
+}
+```
+
+### Example
+
+```ts
+const user: Partial<User> = {
+  name: "Ali"
+};
+```
+
+### 2. Required
+
+Makes every property mandatory.
+
+```ts
+interface User {
+  id?: number;
+  name?: string;
+}
+
+type CompleteUser = Required<User>;
+```
+
+### 3. Readonly
+
+Prevents modification.
+
+```ts
+interface User {
+  id: number;
+  name: string;
+}
+
+const user: Readonly<User> = {
+  id: 1,
+  name: "Gull"
+};
+
+user.name = "Ali";
+```
+
+### 4. Pick
+
+Creates a new type by selecting specific properties.
+
+```ts
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+type UserName = Pick<User, "name" | "email">;
+```
+
+### 5. Omit
+
+Removes selected properties.
+
+```ts
+type PublicUser = Omit<User, "email">;
+```
+
+### 6. Record
+
+Creates an object type with specific keys and value types.
+
+```ts
+type Students = Record<string, number>;
+
+const marks: Students = {
+  Ali: 90,
+  Ahmed: 85,
+  Sara: 95
+};
+```
+
+### Most Used Utility Types
+
+| Utility Type | Purpose |
+|--------------|---------|
+| `Partial` | Makes properties optional |
+| `Required` | Makes properties required |
+| `Readonly` | Makes properties read-only |
+| `Pick` | Selects specific properties |
+| `Omit` | Removes selected properties |
+| `Record` | Creates key-value object types |
+
+### Interview Tip
+
+> `Partial`, `Pick`, `Omit`, and `Readonly` are the utility types you will encounter most often in real-world React and Node.js projects.
+
+---
+
+## 23. What are Modules?
+
+### Interview Question
+
+**Q: What are Modules in TypeScript?**
+
+### Answer
+
+A module is a file that has its own scope and contains at least one `import` or `export` statement. Modules help organize code into smaller, reusable pieces and avoid polluting the global scope. TypeScript follows the JavaScript ES Modules standard.
+
+### Why do we need Modules?
+
+Without modules, everything is placed in one large file, which becomes difficult to maintain.
+
+#### With Modules
+
+```text
+User.ts
+Product.ts
+Order.ts
+Payment.ts
+```
+
+Each file has one responsibility.
+
+### Export
+
+```ts
+export const PI = 3.14;
+
+export function add(a: number, b: number) {
+  return a + b;
+}
+```
+
+### Import
+
+```ts
+import { PI, add } from "./math";
+
+console.log(PI);
+console.log(add(10, 20));
+```
+
+### Default Export
+
+```ts
+export default function greet() {
+  console.log("Hello");
+}
+```
+
+Import:
+
+```ts
+import greet from "./greet";
+
+greet();
+```
+
+### Named Export
+
+```ts
+export const city = "Lahore";
+export const country = "Pakistan";
+```
+
+Import:
+
+```ts
+import { city, country } from "./location";
+```
+
+### Default vs Named Export
+
+| Type | Description |
+|------|-------------|
+| Default Export | One default export per file |
+| Named Export | Multiple named exports allowed |
+
+### Real-world Project Structure
+
+```text
+src/
+  models/
+    User.ts
+  services/
+    api.ts
+  utils/
+    helper.ts
+  components/
+    Navbar.tsx
+  App.tsx
+```
+
+### Advantages
+
+- Better organization
+- Reusable code
+- Easier testing
+- Avoids global variables
+- Improves maintainability
+- Supports team collaboration
+
+### Interview Tip
+
+> In TypeScript and modern JavaScript, any file containing a top-level `import` or `export` is treated as a module.
+
+---
+
+## Quick Revision Table
+
+| Concept | Main Purpose | Common Interview Question |
+|---------|--------------|----------------------------|
+| Generics | Write reusable, type-safe code | Why use Generics instead of `any`? |
+| Utility Types | Transform existing types | Explain `Partial`, `Pick`, `Omit`, and `Readonly` |
+| Modules | Organize code using `import` and `export` | Difference between default and named exports? |
+
+These three topics are considered intermediate-to-advanced TypeScript concepts and are asked frequently in interviews for React, Next.js, Angular, Node.js, and full-stack development roles.
+
