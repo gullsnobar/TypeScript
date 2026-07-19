@@ -560,7 +560,11 @@ Type assertions do not perform runtime validation. If your assumption is wrong, 
 
 ## 16. What is an Enum?
 
-An enum is a way to define a set of named constants, making code easier to read and maintain.
+An enum (short for enumeration) is a TypeScript feature that lets you define a set of named constants. It is useful when you want to give meaningful names to a fixed group of related values such as directions, roles, or status codes.
+
+### Why do we use Enums?
+
+Enums make code easier to read and maintain. Instead of using raw numbers or strings everywhere, you can use descriptive names.
 
 ### Numeric Enum
 
@@ -572,37 +576,77 @@ enum Direction {
   Right
 }
 
-console.log(Direction.Left);
+console.log(Direction.Left); // 2
+```
+
+By default, the first value starts from `0`, and each next value increases by `1`.
+
+### Custom Numeric Enum
+
+```ts
+enum StatusCode {
+  Success = 200,
+  BadRequest = 400,
+  Unauthorized // 401
+}
 ```
 
 ### String Enum
 
 ```ts
-enum Role {
+enum UserRole {
   Admin = "ADMIN",
+  Editor = "EDITOR",
   User = "USER"
 }
 ```
 
-### Real-world Example
+String enums store readable string values and are often preferred for debugging and serialization.
+
+### Heterogeneous Enum
 
 ```ts
-enum OrderStatus {
-  Pending,
-  Processing,
-  Delivered
+enum BooleanLikeHeterogeneousEnum {
+  No = 0,
+  Yes = "YES"
 }
 ```
+
+This is possible, but it is usually discouraged because it can reduce clarity.
+
+### Reverse Mapping (Numeric Enums Only)
+
+Numeric enums generate a reverse mapping in JavaScript, which means you can access both the value and the name.
+
+```ts
+enum Status {
+  Active = 1
+}
+
+console.log(Status.Active); // 1
+console.log(Status[1]); // "Active"
+```
+
+### Const Enum
+
+```ts
+const enum Sizes {
+  Small,
+  Medium
+}
+```
+
+A `const enum` is optimized for performance because TypeScript inlines the values and removes the runtime enum object.
 
 ### Advantages
 
 - Improves readability
-- Prevents magic numbers and strings
-- Improves maintainability
+- Avoids magic numbers and strings
+- Makes code easier to maintain
 
 ### Interview Tip
 
-Modern TypeScript projects often prefer string literal unions over enums in many cases because they generate less runtime code.
+> Enums are useful for named constants, but many modern TypeScript projects prefer string literal unions or objects with `as const` because they are simpler and produce less runtime code.
 
 ---
 
