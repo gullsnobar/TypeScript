@@ -24,3 +24,12 @@ let nameName: string = "Snobar";
 let isActive: boolean = false;
 let notAssigned: undefined = undefined;
 let empty: null = null;
+
+
+enum Status {
+  Pending,
+  Approved,
+  Rejected,
+}
+
+let orderStatus: Status = Status.Approved;
