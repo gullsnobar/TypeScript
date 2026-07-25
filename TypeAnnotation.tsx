@@ -34,4 +34,18 @@ myage = 23;
 let nameStudent = "Dadood"
 
 
+// Practical example
+
+let studentName = "Gull";
+let ageStudent = 22;
+let cgpa = 6.8;
+let isGraduated = true;
+let university = "University of Education"
+let skills = ["Html","CSS","JS","React"]
+
+console.log(studentName);
+console.log(cgpa);
+console.log(skills);
+
+
 
