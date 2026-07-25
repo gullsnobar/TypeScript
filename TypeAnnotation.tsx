@@ -43,9 +43,17 @@ let isGraduated = true;
 let university = "University of Education"
 let skills = ["Html","CSS","JS","React"]
 
+let student = {
+  name: "Gull",
+  age: 22,
+  isGraduated: true,
+};
+
 console.log(studentName);
 console.log(cgpa);
 console.log(skills);
+console.log(student);
+
 
 
 
