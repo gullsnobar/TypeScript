@@ -33,3 +33,13 @@ enum Status {
 }
 
 let orderStatus: Status = Status.Approved;
+
+// What are Primitive Types?
+
+// Primitive types are the basic/simple data types used to represent single values.
+
+let nameClass: string = "Class 6"
+let userName: string = "Gull";
+
+userName = "Ali";
+userName = "Ahmed";
