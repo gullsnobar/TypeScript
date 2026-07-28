@@ -43,3 +43,10 @@ let userName: string = "Gull";
 
 userName = "Ali";
 userName = "Ahmed";
+
+//  What is an Array?
+
+// An array is a collection of multiple values stored in a single variable.
+
+let fruits: string[] = ["apple", "mango", "banana"];
+let nameStu: string[] = ["Gull","Ali","Ahmd"]
