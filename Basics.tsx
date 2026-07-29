@@ -53,7 +53,7 @@ let nameStu: string[] = ["Gull","Ali","Ahmd"];
 
 // String Array
 
-let skills: string[] = [
+let skill: string[] = [
   "HTML",
   "CSS",
   "JavaScript",
@@ -62,8 +62,23 @@ let skills: string[] = [
 ];
 
 skills.push("Next.js")
+console.log(skill[0]);
+
+// push method
+
+let skill_1 : string[] =["HTML", "CSS3"];
+skill_1.push("Javascript");
+console.log(skill_1);
+
+
 
 // Number Array
 
 let marks: number[] = [78,67,89,34,56];
 marks.push(73)
+
+
+// Type Inference with Arrays
+// You don't always need to explicitly write the type.
+
+let cities = ["lahore", "kasur", "Islamabad"]
