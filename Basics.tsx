@@ -49,4 +49,21 @@ userName = "Ahmed";
 // An array is a collection of multiple values stored in a single variable.
 
 let fruits: string[] = ["apple", "mango", "banana"];
-let nameStu: string[] = ["Gull","Ali","Ahmd"]
+let nameStu: string[] = ["Gull","Ali","Ahmd"];
+
+// String Array
+
+let skills: string[] = [
+  "HTML",
+  "CSS",
+  "JavaScript",
+  "React",
+  "TypeScript"
+];
+
+skills.push("Next.js")
+
+// Number Array
+
+let marks: number[] = [78,67,89,34,56];
+marks.push(73)
