@@ -55,5 +55,17 @@ console.log(skills);
 console.log(student);
 
 
+// Tuples in TypeScript
+
+// A Tuple in TypeScript is a special type of array where you define:
+
+// How many elements it should contain
+// What type each element should have
+// The order of those types
+
+let user: [string, number];
+
+user = ["Gull", 22]; // Correct
+
 
 
