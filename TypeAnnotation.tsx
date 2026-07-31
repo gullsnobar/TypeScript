@@ -67,5 +67,9 @@ let user: [string, number];
 
 user = ["Gull", 22]; // Correct
 
+let isStudent1: [boolean] = [true];
+
+let user1: [string, number] = ["Gull", 22];
+
 
 
