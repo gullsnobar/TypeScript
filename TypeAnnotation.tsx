@@ -72,4 +72,11 @@ let isStudent1: [boolean] = [true];
 let user1: [string, number] = ["Gull", 22];
 
 
+// An array usually stores multiple values of the same type, while a tuple stores a fixed number of values where each position can have a specific type.
+
+
+let person: [string, number, boolean];
+
+person = ["Gull", 22, true];
+
 
